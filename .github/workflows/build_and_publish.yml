@@ -1,0 +1,25 @@
+name: Buld and Publish
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+
+      - name: Build 🛠
+        uses: docker/build-push-action@v1
+        with:
+          username: rharter
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          repository: rharter/goaccess-cloudfront
+          tag_with_ref: true
+          add_git_labels: true
