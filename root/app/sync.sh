@@ -2,7 +2,7 @@
 
 echo "INFO: Starting sync.sh PID $$ $(date)"
 
-if [ -z "$CRON" ]; then
+if [ -z "$BUCKET" ]; then
 	echo "Missing BUCKET environment variable."
 	exit 1
 fi
