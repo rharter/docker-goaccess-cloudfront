@@ -1,4 +1,4 @@
-FROM oznu/s6-alpine:latest
+FROM oznu/s6-alpine:3.12
 LABEL mainainer="Ryan Harter <ryan@ryanharter.com>"
 
 ENV \
