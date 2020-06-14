@@ -1,4 +1,4 @@
-FROM oznu/s6-alpine:3.11
+FROM oznu/s6-alpine:latest
 LABEL mainainer="Ryan Harter <ryan@ryanharter.com>"
 
 ENV \
@@ -9,12 +9,10 @@ ENV \
 	PGID="" \
 	TZ=""
 
-RUN echo @edge http://nl.alpinelinux.org/alpine/edge/community > /etc/apk/repositories \
-    && echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories \
- 		&& apk add --no-cache \
- 			goaccess@edge \
- 			nginx@edge \
- 			aws-cli@edge \
+RUN apk add --no-cache \
+ 			goaccess \
+ 			nginx \
+ 			aws-cli \
  		&& rm -rf /var/cache/* \
  		&& mkdir /var/cache/apk
 
