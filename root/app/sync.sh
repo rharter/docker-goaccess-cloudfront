@@ -12,7 +12,7 @@ echo "INFO: Syncing from bucket s3://${BUCKET}"
 aws s3 sync s3://${BUCKET} /logs
 
 echo "INFO: Generating analytics html from logs."
-zcat /logs/*.gz | goaccess --log-format CLOUDFRONT -a -o /config/html/${HTML_FILENAME:-index}.html -
+zcat /logs/*.gz | goaccess --log-format CLOUDFRONT -a -o /config/html/${HTML_FILENAME:-index}.html --db-path /config/data --persist --restore -
 
 case "$POST_ACTION" in
 	"" )

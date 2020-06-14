@@ -19,6 +19,11 @@ if [ ! -d /config/html ]; then
   chown -R "${PUID}:${PGID}" /config/html
 fi
 
+if [ ! -d /config/data ]; then
+  mkdir -p /config/data
+  chown -R "${PUID}:${PGID}" /config/data
+fi
+
 if [ ! -f /config/nginx.conf ]; then
 	echo "Copying default nginx.conf file to /config/nginx.conf"
 	cp /defaults/nginx.conf /config/nginx.conf
