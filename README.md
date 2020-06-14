@@ -30,6 +30,9 @@ The following environment variables are used in addition the the standard s6 ove
 | CRON | (Optional) The cron schedule to sync. If missing, the container will perform a one time sync on launch. |
 | HTML_FILENAME | (Optional) The name of the html file to generate (without the extension). This can be used to generate analytics reports for multiple sites. |
 | NO_SERVER | (Optional) If this variable is set then the nginx server won't be started in this container. |
+| POST_ACTION | (Optional) Specify one of the possible post execution actions to take place after the sync script completes.<br/><ul><li>**prune**: Deletes processed log files from S3.</li><li>**script**: A shell script to execute, placed in `/config`.</li><li>**command**: A shell command to execute.</li></ul>
+
+If you specify a `POST_ACTION` script, it will receive the generated analytics HMTL file as `$1`.
 
 ### Volumes
 
