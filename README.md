@@ -64,7 +64,7 @@ docker run \
 By adding the following configuration to a Docker Compose `yaml` file, the container will continuously run, syncing CloudFront access logs from S3 bucket `my-access-logs` every 5 minutes and updating the served html report. The generated analytics report can be accessed at `http://server.address/index.html`.
 
 ```yaml
- analytics:
+  analytics:
     container_name: analytics
     image: rharter/goaccess-cloudfront
     restart: unless-stopped
@@ -88,7 +88,7 @@ By adding the following configuration to a Docker Compose `yaml` file, the conta
 To generate analytics for multiple sites that are served by a single service, run multiple instances of the container, but only have one of them serve the resulting files. Make sure that you separate the log directories.
 
 ```yaml
- analytics-foo-com:
+  analytics-foo-com:
     container_name: analytics-foo-com
     image: rharter/goaccess-cloudfront
     restart: unless-stopped
@@ -106,7 +106,7 @@ To generate analytics for multiple sites that are served by a single service, ru
       - ${USERDIR}/docker/analytics/logs/foo.com:/logs:rw
       - ${USERDIR}/docker/analytics:/config:rw
       
- analytics-main:
+  analytics-main:
     container_name: analytics-main
     image: rharter/goaccess-cloudfront
     restart: unless-stopped
