@@ -39,13 +39,9 @@ esac
 
 if [ -n "$PRUNE" ];then
 	let log_count=$(ls -l /logs | wc -l | awk '{$1=$1};1')-1
-	let prune_count=log_count-1
 	
-	echo "INFO: Pruning ${prune_count} old logs."
-
-	newest_log_filename=$(ls -tp /logs | head -n 1)
-	find /logs/ -type f -not -name "${newest_log_filename}" -delete
-
+	echo "INFO: Pruning ${log_count} old logs."
+	rm /logs/*
 	aws s3 sync /logs s3://${BUCKET} --delete
 fi
 
