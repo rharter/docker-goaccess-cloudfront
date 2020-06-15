@@ -24,9 +24,9 @@ The following environment variables are used in addition the the standard s6 ove
 
 | Variable | Description |
 | --- | --- |
-| AWS_ACCESS_KEY_ID | The AWS Access Key Id with read permissions for the log bucket. |
-| AWS_SECRET_ACCESS_KEY | The AWS Secret Access Key paired with the id. |
 | BUCKET | The S3 bucket to which CloudFront writes it's logs. |
+| AWS_ACCESS_KEY_ID | The AWS Access Key Id with read permissions for the log bucket. Alternatively, you can use a config file based credentials in `/config/.aws/credentials`. |
+| AWS_SECRET_ACCESS_KEY | The AWS Secret Access Key paired with the id. Alternatively, you can use a config file based credentials in `/config/.aws/credentials`. |
 | CRON | (Optional) The cron schedule to sync. If missing, the container will perform a one time sync on launch. |
 | HTML_FILENAME | (Optional) The name of the html file to generate (without the extension). This can be used to generate analytics reports for multiple sites. |
 | NO_SERVER | (Optional) If this variable is set then the nginx server won't be started in this container. |

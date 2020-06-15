@@ -1,17 +1,17 @@
 #!/usr/bin/with-contenv sh
 
 if [ ! -d /logs ]; then
-	echo "
+  echo "
 ERROR: '/logs' directory must be mounted
 "
-	exit 1
+  exit 1
 fi
 
 if [ ! -d /config ]; then
-	echo "
+  echo "
 ERROR: '/config' directory must be mounted
 "
-	exit 1
+  exit 1
 fi
 
 if [ ! -d /config/html ]; then
@@ -25,10 +25,18 @@ if [ ! -d /config/data ]; then
 fi
 
 if [ ! -f /config/nginx.conf ]; then
-	echo "Copying default nginx.conf file to /config/nginx.conf"
-	cp /defaults/nginx.conf /config/nginx.conf
-	chown -R "${PUID}:${PGID}" /config/nginx.conf
+  echo "Copying default nginx.conf file to /config/nginx.conf"
+  cp /defaults/nginx.conf /config/nginx.conf
+  chown -R "${PUID}:${PGID}" /config/nginx.conf
 fi
+
+if [ ! -d /config/.aws ]; then
+  mkdir -p /config/.aws
+  chown -R "${PUID}:${PGID}" /config/.aws
+fi
+
+export AWS_SHARED_CREDENTIALS_FILE=/config/.aws/credentials
+export AWS_CONFIG_FILE=/config/.aws/config
 
 echo "Running initial sync"
 exec s6-setuidgid "${PUID}:${PGID}" /usr/bin/flock -n /app/sync.lock /app/sync.sh
