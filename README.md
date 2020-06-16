@@ -28,9 +28,11 @@ The following environment variables are used in addition the the standard s6 ove
 | AWS_ACCESS_KEY_ID | The AWS Access Key Id with read permissions for the log bucket. Alternatively, you can use a config file based credentials in `/config/.aws/credentials`. |
 | AWS_SECRET_ACCESS_KEY | The AWS Secret Access Key paired with the id. Alternatively, you can use a config file based credentials in `/config/.aws/credentials`. |
 | CRON | (Optional) The cron schedule to sync. If missing, the container will perform a one time sync on launch. |
+| GOACCESS_ARGS | (Optional) Additional arguments to add to the goaccess command. |
 | HTML_FILENAME | (Optional) The name of the html file to generate (without the extension). This can be used to generate analytics reports for multiple sites. |
 | NO_SERVER | (Optional) If this variable is set then the nginx server won't be started in this container. |
-| POST_ACTION | (Optional) Specify one of the possible post execution actions to take place after the sync script completes.<br/><ul><li>**prune**: Deletes processed log files from S3.</li><li>**script**: A shell script to execute, placed in `/config`.</li><li>**command**: A shell command to execute.</li></ul>
+| PRUNE | (Optional) If set, log files older than the specified number of days will be deleted from S3 |
+| POST_ACTION | (Optional) Specify one of the possible post execution actions to take place after the sync script completes.<br/><ul><li>**script**: A shell script to execute, placed in `/config`.</li><li>**command**: A shell command to execute.</li></ul>
 
 If you specify a `POST_ACTION` script, it will receive the generated analytics HMTL file as `$1`.
 
@@ -54,10 +56,13 @@ docker run \
   -e "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}" \
   -e "BUCKET=my-access-logs" \
   -e "NO_SERVER=1" \
+  -e "PRUNE=60"
   -v "/tmp/goaccess-cloudfront/logs:/logs:rw" \
   -v "/tmp/goaccess-cloudfront:/config:rw" \
   rharter/goaccess-cloudfront
 ```
+
+With the `PRUNE=60` environment variable set, logs older than 60 days will be remove from S3, keeping costs down.  This means that the generated analytics will also only reflect the past 60 days.
 
 ### Docker Compose
 
