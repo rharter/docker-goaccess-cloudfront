@@ -27,11 +27,11 @@ case "$POST_ACTION" in
     ;;
 
   * )
-    if [ -x "${POST_ACTION}" ]; then
+    if [ -f "${POST_ACTION}" ] && [ -x "${POST_ACTION}" ]; then
       echo "INFO: Executing post action script: ${POST_ACTION}"
       sh -c "${POST_ACTION}" "/config/html/${HTML_FILENAME:-index}.html"
-    elif [ -x "/config/${POST_ACTOIN}" ]; then
-      echo "INFO: Executing post action script: ${POST_ACTION}"
+    elif [ -f "/config/${POST_ACTION}" ] && [ -x "/config/${POST_ACTION}" ]; then
+      echo "INFO: Executing post action script: /config/${POST_ACTION}"
       sh -c "/config/${POST_ACTION}" "/config/html/${HTML_FILENAME:-index}.html"
     else
       echo "INFO: Executing post action: ${POST_ACTION}"
