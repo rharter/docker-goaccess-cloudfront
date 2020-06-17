@@ -8,7 +8,7 @@ ENV \
 	PUID="" \
 	PGID="" \
 	TZ="" \
-	GOACCESS_ARGS="--db-path /config/data --persist --restore"
+	GOACCESS_ARGS=
 
 RUN apk add --no-cache \
  			goaccess \
