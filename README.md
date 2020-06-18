@@ -33,6 +33,7 @@ The following environment variables are used in addition the the standard s6 ove
 | NO_SERVER | (Optional) If this variable is set then the nginx server won't be started in this container. |
 | PRUNE | (Optional) If set, log files older than the specified number of days will be deleted from S3 |
 | POST_ACTION | (Optional) Specify one of the possible post execution actions to take place after the sync script completes.<br/><ul><li>**script**: A shell script to execute, placed in `/config`.</li><li>**command**: A shell command to execute.</li></ul>
+| HEALTHCHECK_ID | (Optional) The ID of a https://healthchecks.io/ check which will be pinged before and after sync and processing for monitoring duration and health of the container. |
 
 If you specify a `POST_ACTION` script, it will receive the generated analytics HMTL file as `$1`.
 
