@@ -7,6 +7,10 @@ if [ -z "$BUCKET" ]; then
   exit 1
 fi
 
+if [ -n "$HEALTHCHECK_ID" ]; then
+  curl -sS -X POST -o /dev/null "https://hc-ping.com/$HEALTHCHECK_ID/start"
+fi
+
 # sync the log bucket
 echo "INFO: Syncing from bucket s3://${BUCKET}"
 aws s3 sync s3://${BUCKET} /logs
@@ -68,3 +72,7 @@ if [ -n "$PRUNE" ];then
 fi
 
 echo "INFO: Completed sync.sh PID $$ $(date)"
+
+if [ -n "$HEALTHCHECK_ID" ]; then
+  curl -sS -X POST -o /dev/null --fail "https://hc-ping.com/$HEALTHCHECK_ID"
+fi

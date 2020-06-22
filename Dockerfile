@@ -8,12 +8,14 @@ ENV \
 	PUID="" \
 	PGID="" \
 	TZ="" \
+	HEALTHCHECK_ID="" \
 	GOACCESS_ARGS=
 
 RUN apk add --no-cache \
  			goaccess \
  			nginx \
  			aws-cli \
+ 			curl \
  		&& rm -rf /var/cache/* \
  		&& mkdir /var/cache/apk
 
