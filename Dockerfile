@@ -1,4 +1,4 @@
-FROM alpine:edge AS build
+FROM alpine:3.12 AS build
 RUN apk add --no-cache \
     autoconf \
     automake \
@@ -26,7 +26,7 @@ RUN autoreconf -fiv \
     && make \
     && make DESTDIR=/dist install
 
-FROM oznu/s6-alpine:3.12
+FROM crazymax/alpine-s6:3.12
 LABEL mainainer="Ryan Harter <ryan@ryanharter.com>"
 
 COPY --from=build /dist /
